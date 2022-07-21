@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html>
+<head>
+   {% load static %}
+   {% load mathfilters %}
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>{% block title %}FoodApp{% endblock title %}</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'webapp/css/bootstrap.min.css'%}">
+
+  <link href="/static/webapp/css/style.css" rel="stylesheet" type="text/css" media="all" />
+  <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' >
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Lobster+Two:400,400italic,700,700italic' rel='stylesheet' type='text/css'>
+  <!--Animation-->
+  <script src="/static/webapp/js/wow.min.js"></script>
+  <link href="static/webapp/css/animate.css" rel='stylesheet' type='text-center/css' />
+
+<style type="text/css">
+  .big-banner{
+    background-image: url('/static/webapp/images/slide_1.jpg');
+    opacity: 90%;
+    z-index: -1;
+    
+  }
+  .i-am-center{
+    margin-left:26%; max-width: 100%;
+  }
+  .borders{
+    background-color: blue;
+    border-radius: 10px;
+    padding: 20px;
+  }
+  .wrapper {
+    min-height: 100%;
+    height: 100%;
+    margin: 0 auto -155px; 
+}
+  .footer, .push {
+    height: 155px; 
+}
+.navn{
+  width: 1480px;
+  height: 50px;
+  background-color:rgb(0, 0, 0);
+  opacity: 50%;
+  margin: -100px -100px 0px -10px;
+}
+.navn ul{
+  display:flex;
+  text-decoration: none;
+  margin: 5px -10px 0 68%;
+  list-style: none;
+}
+.navn ul li{
+  text-decoration: none;
+  margin:8px 30px 0 0;
+  z-index: 15;
+}
+.navn ul li a{
+  text-decoration: none;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+}
+.imgnew{
+  width: 80px;
+  height: 80px;
+  float: left;
+  margin: -13px 0 0 30px;
+}
+.navn ul li a:hover{
+  color: rgb(225, 255, 0);
+}.col4ext-light{
+  float: right;
+  margin: 10% -25% 0 0;
+}
+
+.col4ext-light table{
+  border: 5px solid;
+  color: rgb(255, 255, 255);
+  width: 400px;
+  height: 200px;
+}.col4ext-light table  tr{
+  color: rgb(255, 255, 255);
+  border: 5px solid;
+}
+.col4ext-light table  td{
+  color: rgb(255, 255, 255);
+  border: 5px solid;
+  text-align: center;
+}
+.col4ext-light table  th{
+  color: rgb(255, 255, 255);
+  border: 1px solid;
+  text-align: center;
+
+}
+.steps{
+  width: 100%;
+  height:200px;
+}
+.ordersteps{
+  display:flex;
+  margin-left:30px;
+}
+.order1{
+  margin: 0 20px 0 0;
+  padding: 20px;
+  margin-top: 30px;
+  box-shadow: 0 10px 10px 0;
+  border-radius:20px;
+  text-align: center;
+}
+.order1:hover{
+  box-shadow: 0 10px 10px 0;
+  color:aqua;
+}
+.crows{
+  margin-left:20px;
+}
+.rows{
+  display: flex;
+}
+.divimg{
+  margin-right: 50px;
+  margin-left: 10px;
+}
+.divimg img:hover{
+  transform: scale(1.5);
+  border: 1px solid;
+  border-radius: 10px;
+  border-color: yellowgreen;
+}
+.row1,.row2,.row3 {
+  display: flex;
+}
+.rowimgs{
+  margin: 15px 30px 0 30px;
+}
+.rowimgs img{
+  width:300px;
+  height:250px;
+}
+.rowimgs img:hover{
+  transform: scale(1.2);
+}
+</style>
+</head>
+<body>
+    <!-- <div class="mx-auto my-2 order-0 order-md-1 position-relative">
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".dual-collapse2">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div> -->
+
+<div class="jumbotron big-banner" style="height: 500px; width: 100%; padding-top:100px;" >
+  <div class="navn">
+    <a class="mx-auto" href="#">
+      <img  src="/static/webapp/images/logo.png"  alt="Home" class="imgnew">
+  </a>
+    <ul>
+      <li><a class="" href="{% url 'food:restuarant'%}">&nbsp; <strong>For Customer</strong> </a></li>
+      <li><a class="" href="{% url 'food:rlogin'%}"> &nbsp;<strong>For Store</strong> </a></li>
+      <li><a class="" href="{% url 'home:staff'%}"> &nbsp;<strong>For Gatekeepers</strong> </a></li>
+    </ul>
+  </div>
+ 
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="col4 text-light ">
+					<h1 style="font-style:italic; font-family:sans-serif; "><strong>Feeling Hungry</strong></h1>
+					<h2><strong>Register Now<br/>and<br/>Order Now</strong></h2>
+				</div>
+			<br>
+      <button type="button" class="btn btn-success btn-lg"><strong><a href="{% url 'food:login'%}" class="text-light">Login</a></strong></button>
+      <button type="button" class="btn btn-success btn-lg"><strong><a href="{% url 'food:register'%}" class="text-light">Register</a></strong></button>
+			</div>
+        <div class="col">
+           <div class="col4ext-light">
+              <table>
+                <tr>
+                  <th>Gate</th>
+                  <th>Slots Available</th>
+                </tr>
+            
+                {% if slots %}
+                {% for i in slots %}
+              <tr>
+                {% with x=i.Total_Slots %}
+                {% with y=i.parked %}
+                <td>{{i.user.username}}</td>
+                <td>{{x|sub:y}}</td>
+             {% endwith %}
+             {% endwith %}
+              </tr>
+             {% endfor %}
+             {% endif %}
+
+            </table>
+
+            <!-- <h1 style="font-style:italic; font-family:sans-serif; "><strong>Be a Partner</strong></h1>
+          <h2><strong>Join Us Today<br/>and<br>Increase Your Sale</strong></h2>
+        </div> 
+        <br>
+        <button type="button" class="btn btn-success btn-lg"><strong><a href="{% url 'food:rregister'%}" class="text-light">Join Us</a></strong></button> -->
+      </div>
+      </div>
+    </div> 
+	</div>
+</div>
+
+<div class="content">
+		<div class="ordering-section" id="Order">
+			<div class="container">
+				<div class="ordering-section-head text-center wow bounceInRight" data-wow-delay="0.4s">
+					<h3>Ordering food was never so easy</h3>
+					<div class="dotted-line">
+						<h4>Just 4 steps to follow </h4>
+					</div>
+				</div>
+				<div class="steps">
+          <div class="ordersteps">
+            <div class="order1">
+              <h2>Choose the store</h2>
+            </div>
+            <div class="order1">
+              <h2>order your cuisine</h2>
+            </div>
+            <div class="order1">
+              <h2>Pay online</h2>
+            </div>
+            <div class="order1">
+              <h2>Enjoy your food</h2>
+            </div>
+          </div>
+        </div>
+			</div>
+		</div>
+		</div>
+	</div>
+
+<div class="container col-md-9">
+		<div class="top-restaurent-head">
+						<h3>Top Stores</h3>
+		</div> 
+		<div class="rows">
+      <div class="divimg">
+        <a href="">
+          <img src="/static/webapp/images/restaurent-2.jpg" class="img-responsive" alt="" />
+        </a>
+      </div>
+      <div class="divimg">
+        <a href="">
+          <img src="/static/webapp/images/restaurent-3.jpg" class="img-responsive" alt="" />
+        </a>
+        </div>
+      <div class="divimg">
+        <a href="">
+          <img src="/static/webapp/images/restaurent-4.jpg" class="img-responsive" alt="" />
+        </a>
+      </div>
+      <div class="divimg">
+        <a href="">
+          <img src="/static/webapp/images/restaurent-5.jpg" class="img-responsive" alt="" />
+        </a>
+      </div>
+      <div class="divimg">
+        <a href="">
+          <img src="/static/webapp/images/restaurent-6.jpg" class="img-responsive" alt="" />
+        </a>
+      </div>
+    </div>
+
+<br>
+<br>
+<div class="topqns">
+  <div class="top-cuisine-head">
+    <h3>Top Cuisines</h3>
+</div>
+  <div class="crows">
+    <div class="row1">
+      <div class="rowimgs">
+        <a href="">
+          <img src="/static/webapp/images/cuisine1.jpg"/>
+        </a>
+        <div class="imgalt">
+          <h4>Pizza</h4>
+        </div>
+      </div>
+      <div class="rowimgs">
+        <a href="">
+          <img src="/static/webapp/images/cuisine2.jpg"/>
+        </a>
+        <div class="imgalt">
+          <h4>Burger</h4>
+        </div>
+      </div>
+      <div class="rowimgs">
+        <a href="">
+          <img src="/static/webapp/images/cuisine3.jpg"/>
+        </a>
+        <div class="imgalt">
+          <h4>Donut</h4>
+        </div>
+      </div>
+    </div>
+    <div class="row2">
+      <div class="rowimgs">
+        <a href="">
+          <img src="/static/webapp/images/cuisine4.jpg"/>
+        </a>
+        <div class="imgalt">
+          <h4>Curry</h4>
+        </div>
+      </div>
+      <div class="rowimgs">
+        <a href="">
+          <img src="/static/webapp/images/cuisine5.jpg"/>
+        </a>
+        <div class="imgalt">
+          <h4>Broast</h4>
+        </div>
+      </div>
+      <div class="rowimgs">
+        <a href="">
+          <img src="/static/webapp/images/cuisine6.jpg"/>
+        </a>
+        <div class="imgalt">
+          <h4>Frawn Rice</h4>
+        </div>
+      </div>
+    </div>
+    <div class="row3">
+      <div class="rowimgs">
+        <a href="">
+          <img src="/static/webapp/images/cuisine7.jpg"/>
+        </a>
+        <div class="imgalt">
+          <h4>Trips</h4>
+        </div>
+      </div>
+      <div class="rowimgs">
+        <a>
+          <img src="/static/webapp/images/cuisine8.jpg"/>
+        </a>
+        <div class="imgalt">
+          <h4>Stake</h4>
+        </div>
+      </div>
+      <div class="rowimgs">
+        <a href="">
+          <img src="/static/webapp/images/cuisine3.jpg"/>
+        </a>
+        <div class="imgalt">
+          <h4>Donut</h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<div class="footer">
+		<div class="container">
+			   <div class="footer-copyright text-center py-3">©:
+        <a href="#"> MarketSonar</a>
+			
+		</div>
+	</div>
+ 
+				
+<script type="text/javascript" src="{%static 'webapp/js/jquery.min.js'%}">
+	</script>
+	<script type="text/javascript" src="{%static 'webapp/js/bootstrap.min.js'%}"></script>
+<script>
+	new WOW().init();
+</script>
+<script src="/static/webapp/js/simpleCart.min.js"> </script>
+<script type="text/javascript" src="/static/webapp/js/move-top.js"></script>
+<script type="text/javascript" src="/static/webapp/js/easing.js"></script>
+</body>
+</html>
