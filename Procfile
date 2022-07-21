@@ -1,0 +1,1 @@
+web: gunicorn MCFP.wsgi:application --log-file -
