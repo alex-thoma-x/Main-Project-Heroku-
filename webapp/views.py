@@ -32,6 +32,9 @@ import razorpay
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest
+from parking.views import slotcheck
+from datetime import  timedelta,timezone
+from dateutil.tz import gettz
  
 
 
@@ -183,7 +186,18 @@ def customerProfile(request,pk=None):
 		
 	else:
 		gate=False
-	return render(request,'webapp/profile.html',{'user':user,'gate':gate})
+	booking=Booking.objects.filter(mobile=request.user.customer.phone)
+	print(booking)
+	if booking.count()>0:
+		book=False
+		time=booking[0].time + timedelta(hours=1)
+		print(type(time))
+		bookgate=booking[0].gate
+	else:
+		time=None
+		book=True	
+		bookgate=None
+	return render(request,'webapp/profile.html',{'user':user,'gate':gate,'book':book,'time':time,'bgate':bookgate})
 
 
 #to find the parking slot of the registered user
@@ -494,33 +508,42 @@ def custorder(request):
 
 	return render(request,"webapp/custorder.html",context)
 
-from parking.views import slotcheck
-from datetime import datetime, timedelta
+
 
 def check_slot_booking():
 	if len(slotcheck('gate1'))>1:
 		free_slot= min(slotcheck('gate1'))
+		gate='gate1'
 	elif len(slotcheck('gate2'))>1:
 		free_slot= min(slotcheck('gate2'))
+		gate='gate2'
+	elif len(slotcheck('gate3'))>1:
+		free_slot= min(slotcheck('gate3'))
+		gate='gate3'
 	else:
 		free_slot=False
-	return free_slot
+		gate=False
+	return {1:free_slot,2:gate}
 
 def booking(request):
 
 	for record in Booking.objects.all():
-		time_elapsed = datetime.now() - record.time
+		time_elapsed = datetime.datetime.now(tz=gettz('Asia/Kolkata')) - record.time
 		if time_elapsed > timedelta(hours=1):
 			record.delete()
 	mob=request.user.customer.phone
 	book=Booking()
-	p=book.objects.filter(mobile=mob).count()
+	p=Booking.objects.filter(mobile=mob).count()
 	if p==0:
-		if check_slot_booking():
+		checkslot=check_slot_booking()
+		print(checkslot[1])
+		if checkslot[1]:
 			book.mobile=mob
-			book.slot=check_slot_booking()
+			book.slot=checkslot[1]
+			book.time=datetime.datetime.now(tz=gettz('Asia/Kolkata'))
+			book.gate=checkslot[2]
 			book.save()
-	print(book)
+	return redirect('food:profile')
 
 	
 		

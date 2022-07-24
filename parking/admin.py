@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category,Vehicle,parking_slots
+from .models import Booking, Category,Vehicle,parking_slots
 
 
 # Register your models here.
@@ -26,3 +26,4 @@ class vehicle(admin.ModelAdmin):
 admin.site.register(Category)
 admin.site.register(Vehicle,vehicle)
 admin.site.register(parking_slots,park)
+admin.site.register(Booking)
