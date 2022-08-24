@@ -32,7 +32,7 @@ urlpatterns = [
     path('analytics/',views.analytics,name='analytics'),
     path('bookslot/',views.booking,name="bookslot"),
     path("password_reset", views.password_reset_request, name="password_reset"),
-    path('paymenthandler/', views.paymenthandler, name='paymenthandler'),
+    path('/paymenthandler/', views.paymenthandler, name='paymenthandler'),
    
 ]
 # if settings.DEBUG:

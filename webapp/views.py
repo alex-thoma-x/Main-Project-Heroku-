@@ -299,8 +299,6 @@ def checkout(request):
                                                     status=Order.ORDER_STATE_PLACED)
 		global order_id_for_otp
 		order_id_for_otp=ordid
-		od=Order.objects.filter(id=int(ordid))
-		# pay(od[0].price)
 		return redirect('food:oderplaced')
 	else:	
 		cart = request.COOKIES['cart'].split(",")
@@ -332,32 +330,13 @@ def checkout(request):
 			items.append(item)
 		oid.total_amount=totalprice
 		oid.save()
-		currency = 'INR'
-		amount = totalprice*100  # Rs. 200
-	
-		# Create a Razorpay Order
-		razorpay_order = razorpay_client.order.create(dict(amount=amount,
-														currency=currency,
-														payment_capture='0'))
-	
-		# order id of newly created order.
-		razorpay_order_id = razorpay_order['id']
-		callback_url = 'paymenthandler/'
-	
-		
 		context={
 			"items":items,
 			"totalprice":totalprice,
-			"oid":oid.id,
-			'razorpay_order_id':razorpay_order_id,
-			'razorpay_merchant_key':settings.RAZOR_KEY_ID,
-			'razorpay_amount':amount,
-			'currency':currency,
-			'callback_url':callback_url
-			
+			"oid":oid.id
 		}	
 		return render(request,'webapp/order.html',context)
-
+		
 def paymenthandler(request):
 	if request.method == "POST":
 		return redirect('food:oderplaced')
