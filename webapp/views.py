@@ -800,6 +800,7 @@ def orderlist(request):
 		
 		corder.append(x)
 		corder.append(order.delivery_addr)
+		corder.append(order.secret_code)
 		if feed.count()!=0:
 			corder.append(feed[0].rating)
 			if feed[0].remarks!=None:
